@@ -1,53 +1,59 @@
 <template>
+
   <section class="section">
-    <div class="columns is-mobile">
-      <card
-        title="Free"
-        icon="github-circle"
-      >
-        Open source on <a href="https://github.com/buefy/buefy">
-          GitHub
-        </a>
-      </card>
-
-      <card
-        title="Responsive"
-        icon="cellphone-link"
-      >
-        <b class="has-text-grey">
-          Every
-        </b> component is responsive
-      </card>
-
-      <card
-        title="Modern"
-        icon="alert-decagram"
-      >
-        Built with <a href="https://vuejs.org/">
-          Vue.js
-        </a> and <a href="http://bulma.io/">
-          Bulma
-        </a>
-      </card>
-
-      <card
-        title="Lightweight"
-        icon="arrange-bring-to-front"
-      >
-        No other internal dependency
-      </card>
-    </div>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Top Funny Pug/competitivo
+          </h1>
+          <h2 class="subtitle">
+            Premio a los mejores 3 jugadores
+          </h2>
+        </div>
+        <br>
+        <div class="columns is-mobile">
+          <b-table :data="players" :columns="columns"></b-table>
+        </div>
+      </div>
+    </section>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
-
 export default {
   name: 'HomePage',
+  data () {
+    return {
+      players: [],
+      columns: [
+        {
+          field: 'name',
+          label: 'Nombre'
+        },
+        {
+          field: 'kills',
+          label: 'Frags'
+        },
+        {
+          field: 'deaths',
+          label: 'Muertes'
+        }
+      ]
+    }
+  },
+  created () {
+    this.getTop()
+  },
+  methods: {
+    async getTop () {
+      const data = await this.$axios.$get('http://localhost:8080/top')
 
-  components: {
-    Card
+      if (data !== undefined) {
+        this.players = data.players
+        console.log(this.players)
+      }
+    }
   }
 }
 </script>
