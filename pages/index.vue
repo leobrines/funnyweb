@@ -51,7 +51,6 @@ export default {
 
       if (data !== undefined) {
         this.players = data.players
-        console.log(this.players)
       }
     }
   }
