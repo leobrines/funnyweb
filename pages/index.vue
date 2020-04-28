@@ -1,5 +1,4 @@
 <template>
-
   <section class="section">
     <section class="hero">
       <div class="hero-body">
@@ -13,13 +12,18 @@
         </div>
         <br>
         <div class="columns is-mobile">
-          <b-table :data="players" :columns="columns"></b-table>
+          <b-table
+            :data="players"
+            :columns="columns"
+            selectable
+            hoverable
+            @select="goToSteamProfile"
+          ></b-table>
         </div>
       </div>
     </section>
   </section>
 </template>
-
 <script>
 export default {
   name: 'HomePage',
@@ -52,6 +56,9 @@ export default {
       if (data !== undefined) {
         this.players = data.players
       }
+    },
+    goToSteamProfile (item) {
+      window.open(item.steam_profile, '_blank')
     }
   }
 }
